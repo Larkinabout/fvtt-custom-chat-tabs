@@ -1,0 +1,103 @@
+/* ---------------------------------------- */
+/*  Tab Bar                                 */
+/* ---------------------------------------- */
+
+.custom-chat-tabs-bar {
+  align-items: center;
+  border-bottom: 1px solid var(--color-shadow-primary);
+  box-sizing: border-box;
+  display: flex;
+  padding: 4px 0 0 0;
+  pointer-events: all;
+  width: 100%;
+}
+
+.custom-chat-tabs-list {
+  display: flex;
+  flex: 1;
+  gap: 0.25rem;
+  overflow: hidden;
+  padding: 0 4px;
+}
+
+/* ---------------------------------------- */
+/*  Scroll Arrows                           */
+/* ---------------------------------------- */
+
+.custom-chat-tabs-arrow {
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+  flex: 0 0 auto;
+  font-size: var(--font-size-14);
+  justify-content: center;
+  padding: 0;
+  width: 20px;
+}
+
+.custom-chat-tabs-arrow.visible {
+  display: flex;
+}
+
+/* ---------------------------------------- */
+/*  Tabs                                    */
+/* ---------------------------------------- */
+
+.custom-chat-tabs-tab {
+  align-items: center;
+  background: var(--control-bg-color);
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--font-size-12);
+  gap: 0.25rem;
+  margin-top: 1px;
+  padding: 4px 8px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.custom-chat-tabs-tab:hover {
+  background: var(--control-hover-bg-color);
+  border: 1px solid var(--control-hover-border-color);
+  border-bottom: none;
+}
+
+.custom-chat-tabs-tab.active,
+.custom-chat-tabs-tab.active:hover {
+  background: var(--control-active-border-color);
+  border: 1px solid transparent;
+  border-bottom: none;
+}
+
+/* ---------------------------------------- */
+/*  Pin Indicator                           */
+/* ---------------------------------------- */
+
+.custom-chat-tabs-pin-icon {
+  padding-left: 0.5rem;
+  flex: 0;
+}
+
+/* ---------------------------------------- */
+/*  Notification Pips                     */
+/* ---------------------------------------- */
+
+.custom-chat-tabs-pip {
+  background: white;
+  border-radius: 50%;
+  display: none;
+  height: 8px;
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  width: 8px;
+}
+
+.custom-chat-tabs-pip.active {
+  display: block;
+}

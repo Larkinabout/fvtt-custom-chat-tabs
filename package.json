@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "scripts": {
+    "lint": "eslint scripts/",
+    "lint:fix": "eslint scripts/ --fix"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.8",
+    "@babel/eslint-parser": "^7.26.8",
+    "eslint": "^9.20.1",
+    "eslint-plugin-custom-eslint-rules": "file:./custom-eslint-rules",
+    "eslint-plugin-jsdoc": "^46.5.0",
+    "globals": "^15.15.0"
+  }
+}

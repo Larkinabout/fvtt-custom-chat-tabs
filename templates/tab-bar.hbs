@@ -1,0 +1,15 @@
+<nav class="custom-chat-tabs-bar">
+  <a class="custom-chat-tabs-arrow left"><i class="fa-solid fa-caret-left"></i></a>
+  <div class="custom-chat-tabs-list">
+    {{#each tabs}}
+    <div class="custom-chat-tabs-tab ui-control{{#if active}} active{{/if}}" data-tab="{{key}}" data-tooltip="{{hint}}">
+      {{#if icon}}<i class="{{icon}}"></i> {{/if}}
+      <span>{{label}}</span>
+      {{#if ../showPips}}
+      <span class="custom-chat-tabs-pip"></span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+  <a class="custom-chat-tabs-arrow right"><i class="fa-solid fa-caret-right"></i></a>
+</nav>

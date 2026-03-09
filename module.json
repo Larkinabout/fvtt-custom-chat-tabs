@@ -1,0 +1,33 @@
+{
+  "id": "custom-chat-tabs",
+  "title": "Custom Chat Tabs",
+  "description": "A system-agnostic Foundry VTT module that adds customisable chat tabs.",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Larkinabout",
+      "url": "https://github.com/Larkinabout"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13.341",
+    "verified": "13.351",
+    "maximum": "13.999"
+  },
+  "esmodules": [
+    "scripts/module.mjs"
+  ],
+  "styles": [
+    "styles/custom-chat-tabs.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    }
+  ],
+  "socket": false,
+  "url": "https://github.com/Larkinabout/fvtt-custom-chat-tabs",
+  "bugs": "https://github.com/Larkinabout/fvtt-custom-chat-tabs/issues"
+}
