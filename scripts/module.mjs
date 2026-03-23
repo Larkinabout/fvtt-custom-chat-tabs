@@ -47,6 +47,18 @@ Hooks.on("ready", async () => {
 });
 
 /* ---------------------------------------- */
+/*  Canvas Ready                            */
+/* ---------------------------------------- */
+
+Hooks.on("canvasReady", () => {
+  if ( !getSetting(SETTING.ENABLE.KEY) ) return;
+  if ( !game.customChatTabs._ready ) return;
+  if ( game.customChatTabs._activeTab !== TAB.SCENE ) return;
+
+  game.customChatTabs.filterMessages(document);
+});
+
+/* ---------------------------------------- */
 /*  Render Chat Input                       */
 /* ---------------------------------------- */
 

@@ -41,5 +41,6 @@ export const TAB = {
   IC: "ic",
   OOC: "ooc",
   ROLLS: "rolls",
+  SCENE: "scene",
   WHISPERS: "whispers"
 };

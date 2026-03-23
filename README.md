@@ -11,21 +11,25 @@ A system-agnostic Foundry VTT module that adds customisable chat tabs.
 
 ### Chat Tabs
 
-A tab bar is added above the chat log with built-in and optional tabs for organising messages.
+A tab bar is added above the chat log for organising messages. The **All** tab is always present. Additional tabs can be selected via the **Configure Tabs** settings menu.
 
-**Built-in Tabs:**
-- **All** - Shows all messages
-- **Pinned** - Shows pinned messages
-
-**Optional Tabs** (enabled via settings):
+**Available Tabs:**
+- **Pinned** - Pinned messages
 - **IC** - In-character messages
 - **OOC** - Out-of-character messages
 - **Rolls** - Roll messages
+- **Scene** - Messages from the currently active scene
 - **Whispers** - Whispered messages
+
+### Tab Configuration
+
+Located in **Game Settings** > **Configure Settings** > **Custom Chat Tabs** > **Configure Tabs**. Tabs can be moved between the Available and Selected lists using the arrow buttons. Selected tabs can be reordered by dragging or using the up/down buttons.
+
+Each tab has an edit button to customise its label, icon, and whether to display the icon only. Tabs registered by other modules appear in the Selected list with a plug icon and cannot be removed, but can be reordered and edited.
 
 ### Message Pinning
 
-Right-click a chat message and select **Pin Message** to pin it. Pinned messages are indicated with a thumbtack icon in the message header, which can also be clicked to unpin.
+Right-click a chat message and select **Pin Message** to pin it. Pinned messages are indicated with a thumbtack icon in the message header, which can also be clicked to unpin. Pinning requires the Pinned tab to be in the Selected list.
 
 ### Notification Pips
 
@@ -40,12 +44,9 @@ The **Clear Chat Log** and **Export Chat Log** buttons are scoped to the active 
 | Setting | Description |
 |---------|-------------|
 | Enable Chat Tabs | Enable the chat tabs |
+| Configure Tabs | Configure which tabs are shown and their order |
 | Show Pin Indicator | Show a pin icon on pinned messages |
 | Notification Pips | Show unread notification pips on inactive tabs |
-| In Character Tab | Show a tab for in-character messages |
-| Out of Character Tab | Show a tab for out-of-character messages |
-| Rolls Tab |  Show a tab for roll messages |
-| Whispers Tab | Show a tab for whispered messages |
 | Enable Debug Mode | Log debug messages to the console |
 
 ## API
@@ -82,6 +83,8 @@ Hooks.on("custom-chat-tabs.init", () => {
   });
 });
 ```
+
+Tabs registered via the API will appear in the Configure Tabs window where GMs can reorder and customise their display.
 
 ### Registration Options
 

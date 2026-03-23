@@ -16,6 +16,8 @@ export function buildFilter(preset, config = {}) {
       return msg => msg.whisper?.length > 0;
     case "pinned":
       return msg => msg.flags?.[MODULE.ID]?.pinned === true;
+    case "scene":
+      return msg => msg.speaker?.scene === canvas.scene?.id;
     case "roll":
       return msg => msg.isRoll;
     case "flag":
@@ -80,6 +82,13 @@ export function getPresetTabs() {
       key: TAB.ROLLS,
       label: game.i18n.localize("CUSTOM_CHAT_TABS.tabs.rolls"),
       preset: "roll",
+      config: {}
+    },
+    {
+      key: TAB.SCENE,
+      label: game.i18n.localize("CUSTOM_CHAT_TABS.tabs.scene"),
+      icon: "fas fa-map",
+      preset: "scene",
       config: {}
     },
     {
