@@ -7,6 +7,12 @@ A system-agnostic Foundry VTT module that adds customisable chat tabs.
 
 ![Custom Chat Tabs - Pinned](./.github/readme/custom-chat-tabs-pinned.png)
 
+## Licence & Usage
+
+This module references Font Awesome Pro icons under a personal licence. The code in this repository is not licensed for redistribution. This module is designed for use with Foundry VTT V13 only.
+
+For full attribution and licensing details, see [ATTRIBUTION.md](ATTRIBUTION.md).
+
 ## Features
 
 ### Chat Tabs
