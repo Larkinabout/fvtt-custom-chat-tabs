@@ -70,7 +70,7 @@ export function getPresetTabs() {
       key: TAB.IC,
       label: game.i18n.localize("CUSTOM_CHAT_TABS.tabs.ic"),
       preset: "type",
-      config: { types: [CONST.CHAT_MESSAGE_STYLES.IC] }
+      config: { types: [CONST.CHAT_MESSAGE_STYLES.IC, CONST.CHAT_MESSAGE_STYLES.EMOTE] }
     },
     {
       key: TAB.OOC,
