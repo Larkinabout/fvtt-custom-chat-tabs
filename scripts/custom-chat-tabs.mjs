@@ -1,6 +1,6 @@
 import { MODULE, SETTING, TAB, TEMPLATE } from "./constants.mjs";
 import { getSetting, Logger } from "./utils.mjs";
-import { getBuiltInTabs, getOptionalTabs, getUserTabs } from "./tab-registry.mjs";
+import { getBuiltInTabs, getFilterForTab } from "./tab-registry.mjs";
 
 /**
  * Class managing chat tab state, rendering, and message filtering.
@@ -25,12 +25,18 @@ export class CustomChatTabs {
       this._tabs.set(tab.key, tab);
     }
 
-    for ( const tab of getOptionalTabs() ) {
-      this._tabs.set(tab.key, tab);
-    }
-
-    for ( const tab of getUserTabs() ) {
-      this._tabs.set(tab.key, tab);
+    const activeTabs = getSetting(SETTING.TABS.KEY) ?? [];
+    for ( const tabData of activeTabs ) {
+      const isExternal = !tabData.preset;
+      this._tabs.set(tabData.key, {
+        key: tabData.key,
+        label: tabData.label,
+        icon: tabData.icon ?? "",
+        iconOnly: tabData.iconOnly ?? false,
+        filter: isExternal ? null : getFilterForTab(tabData),
+        removable: false,
+        _placeholder: isExternal
+      });
     }
 
     Logger.info(`Initialised with ${this._tabs.size} tabs`);
@@ -42,6 +48,15 @@ export class CustomChatTabs {
   ready() {
     this._ready = true;
     Hooks.callAll(`${MODULE.ID}.init`);
+
+    // Remove placeholder tabs that were never registered by their module
+    for ( const [key, tab] of this._tabs ) {
+      if ( tab._placeholder ) {
+        this._tabs.delete(key);
+        Logger.debug(`Removed unresolved placeholder tab "${key}"`);
+      }
+    }
+
     this.injectTabBar(ui.chat.element);
   }
 
@@ -66,10 +81,21 @@ export class CustomChatTabs {
       Logger.error("Registration failed: key, label, and filter are required.");
       return;
     }
-    if ( this._tabs.has(data.key) ) {
+
+    // Merge into placeholder if the tab was saved from a previous session
+    const existing = this._tabs.get(data.key);
+    if ( existing && !existing._placeholder ) {
       Logger.warn(`Registration failed: tab "${data.key}" already exists.`);
       return;
     }
+
+    if ( existing?._placeholder ) {
+      // Preserve saved display settings
+      data.label = existing.label;
+      data.icon = existing.icon || data.icon;
+      data.iconOnly = existing.iconOnly ?? data.iconOnly;
+    }
+
     data.removable ??= true;
     data.exclusive ??= false;
     this._tabs.set(data.key, data);
@@ -116,6 +142,7 @@ export class CustomChatTabs {
         label: tab.label,
         hint: tab.hint ?? "",
         icon: tab.icon ?? "",
+        iconOnly: tab.iconOnly ?? false,
         active: tab.key === this._activeTab,
         pip: this._unreadCounts[tab.key] || 0
       }));

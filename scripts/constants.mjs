@@ -3,6 +3,13 @@ export const MODULE = {
   NAME: "Custom Chat Tabs"
 };
 
+export const MENU = {
+  KEY: "tabConfig",
+  ICON: "fas fa-bars",
+  LABEL: "CUSTOM_CHAT_TABS.tabConfig.label",
+  NAME: "CUSTOM_CHAT_TABS.tabConfig.name",
+  HINT: "CUSTOM_CHAT_TABS.tabConfig.hint"
+};
 
 export const SETTING = {
   ENABLE: {
@@ -19,23 +26,13 @@ export const SETTING = {
   },
   DEBUG: {
     KEY: "debug"
-  },
-  TAB_IC: {
-    KEY: "tabIC"
-  },
-  TAB_OOC: {
-    KEY: "tabOOC"
-  },
-  TAB_ROLLS: {
-    KEY: "tabRolls"
-  },
-  TAB_WHISPERS: {
-    KEY: "tabWhispers"
   }
 };
 
 export const TEMPLATE = {
-  TAB_BAR: `modules/${MODULE.ID}/templates/tab-bar.hbs`
+  TAB_BAR: `modules/${MODULE.ID}/templates/tab-bar.hbs`,
+  TAB_CONFIG: `modules/${MODULE.ID}/templates/tab-config-form.hbs`,
+  TAB_EDIT: `modules/${MODULE.ID}/templates/tab-edit-form.hbs`
 };
 
 export const TAB = {

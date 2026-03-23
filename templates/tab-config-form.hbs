@@ -1,0 +1,63 @@
+<div class="custom-chat-tabs-config standard-form">
+  <div class="custom-chat-tabs-config-panels">
+
+    {{!-- Available Tabs --}}
+    <div class="custom-chat-tabs-config-panel">
+      <h3>{{localize "CUSTOM_CHAT_TABS.tabConfig.available"}}</h3>
+      <ol class="custom-chat-tabs-config-list" data-list="available">
+        {{#each available}}
+        <li class="custom-chat-tabs-config-item{{#if (eq key ../highlightedAvailable)}} highlighted{{/if}}" data-key="{{key}}">
+          <span class="custom-chat-tabs-config-item-label">
+            {{#if icon}}<i class="{{icon}}"></i> {{/if}}{{label}}
+          </span>
+          <button type="button" class="custom-chat-tabs-config-edit" data-action="editTab">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+
+    {{!-- Transfer Buttons --}}
+    <div class="custom-chat-tabs-config-controls">
+      <button type="button" data-action="addTab" data-tooltip="Add">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <button type="button" data-action="removeTab" data-tooltip="Remove">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button type="button" data-action="moveUp" data-tooltip="Move Up">
+        <i class="fa-solid fa-chevron-up"></i>
+      </button>
+      <button type="button" data-action="moveDown" data-tooltip="Move Down">
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </div>
+
+    {{!-- Active Tabs --}}
+    <div class="custom-chat-tabs-config-panel">
+      <h3>{{localize "CUSTOM_CHAT_TABS.tabConfig.selected"}}</h3>
+      <ol class="custom-chat-tabs-config-list" data-list="selected">
+        {{#each selected}}
+        <li class="custom-chat-tabs-config-item{{#if external}} external{{/if}}{{#if (eq key ../highlightedSelected)}} highlighted{{/if}}" data-key="{{key}}" draggable="true">
+          <span class="custom-chat-tabs-config-item-label">
+            {{#if icon}}<i class="{{icon}}"></i> {{/if}}{{label}}
+            {{#if (ne label originalLabel)}}<span class="custom-chat-tabs-config-original">({{originalLabel}})</span>{{/if}}
+          </span>
+          {{#if external}}<i class="fa-solid fa-plug custom-chat-tabs-config-external-icon" data-tooltip="Registered by module"></i>{{/if}}
+          <button type="button" class="custom-chat-tabs-config-edit" data-action="editTab">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+
+  </div>
+
+  <footer class="form-footer">
+    <button type="button" data-action="save">
+      <i class="fa-solid fa-floppy-disk"></i> Save &amp; Close
+    </button>
+  </footer>
+</div>

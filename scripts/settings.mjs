@@ -1,4 +1,5 @@
-import { MODULE, SETTING } from "./constants.mjs";
+import { MENU, MODULE, SETTING } from "./constants.mjs";
+import { TabConfigForm } from "./forms/tab-config-form.mjs";
 
 /**
  * Register module settings.
@@ -14,11 +15,20 @@ export function registerSettings() {
     requiresReload: true
   });
 
+  game.settings.registerMenu(MODULE.ID, MENU.KEY, {
+    name: game.i18n.localize(MENU.NAME),
+    hint: game.i18n.localize(MENU.HINT),
+    label: game.i18n.localize(MENU.LABEL),
+    icon: MENU.ICON,
+    type: TabConfigForm,
+    restricted: true
+  });
+
   game.settings.register(MODULE.ID, SETTING.TABS.KEY, {
     scope: "world",
     config: false,
-    type: Object,
-    default: {}
+    type: Array,
+    default: []
   });
 
   game.settings.register(MODULE.ID, SETTING.SHOW_PIN_BUTTON.KEY, {
@@ -37,46 +47,6 @@ export function registerSettings() {
     config: true,
     type: Boolean,
     default: true
-  });
-
-  game.settings.register(MODULE.ID, SETTING.TAB_IC.KEY, {
-    name: "CUSTOM_CHAT_TABS.tabIC.name",
-    hint: "CUSTOM_CHAT_TABS.tabIC.hint",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: false,
-    requiresReload: true
-  });
-
-  game.settings.register(MODULE.ID, SETTING.TAB_OOC.KEY, {
-    name: "CUSTOM_CHAT_TABS.tabOOC.name",
-    hint: "CUSTOM_CHAT_TABS.tabOOC.hint",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: false,
-    requiresReload: true
-  });
-
-  game.settings.register(MODULE.ID, SETTING.TAB_ROLLS.KEY, {
-    name: "CUSTOM_CHAT_TABS.tabRolls.name",
-    hint: "CUSTOM_CHAT_TABS.tabRolls.hint",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: false,
-    requiresReload: true
-  });
-
-  game.settings.register(MODULE.ID, SETTING.TAB_WHISPERS.KEY, {
-    name: "CUSTOM_CHAT_TABS.tabWhispers.name",
-    hint: "CUSTOM_CHAT_TABS.tabWhispers.hint",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: false,
-    requiresReload: true
   });
 
   game.settings.register(MODULE.ID, SETTING.DEBUG.KEY, {

@@ -4,6 +4,20 @@
       "name": "Enable Chat Tabs",
       "hint": "Enable the chat tabs."
     },
+    "tabConfig": {
+      "name": "Configure Tabs",
+      "hint": "Configure which tabs are shown and their order.",
+      "label": "Configure Tabs",
+      "title": "Configure Tabs",
+      "available": "Available Tabs",
+      "selected": "Selected Tabs"
+    },
+    "tabEdit": {
+      "title": "Edit Tab",
+      "label": "Label",
+      "icon": "Icon",
+      "iconOnly": "Icon Only"
+    },
     "tabs": {
       "all": "All",
       "pinned": "Pinned",
@@ -14,9 +28,6 @@
     },
     "pin": "Pin Message",
     "unpin": "Unpin Message",
-    "configureTab": "Configure Tab",
-    "deleteTab": "Delete Tab",
-    "newTab": "New Tab",
     "showPinButton": {
       "name": "Show Pin Indicator",
       "hint": "Show a pin icon on pinned messages."
@@ -25,33 +36,9 @@
       "name": "Notification Pips",
       "hint": "Show unread notification pips on inactive tabs."
     },
-    "tabIC": {
-      "name": "In Character Tab",
-      "hint": "Show a tab for in-character messages."
-    },
-    "tabOOC": {
-      "name": "Out of Character Tab",
-      "hint": "Show a tab for out-of-character messages."
-    },
-    "tabRolls": {
-      "name": "Rolls Tab",
-      "hint": "Show a tab for roll messages."
-    },
-    "tabWhispers": {
-      "name": "Whispers Tab",
-      "hint": "Show a tab for whispered messages."
-    },
     "debug": {
       "name": "Enable Debug Mode",
       "hint": "Log debug messages to the console."
-    },
-    "presets": {
-      "speaker": "By Speaker",
-      "type": "By Type",
-      "whisper": "Whispers Only",
-      "roll": "Rolls Only",
-      "flag": "By Flag",
-      "content": "By Content"
     }
   }
 }

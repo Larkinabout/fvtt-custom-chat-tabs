@@ -3,8 +3,8 @@
   <div class="custom-chat-tabs-list">
     {{#each tabs}}
     <div class="custom-chat-tabs-tab ui-control{{#if active}} active{{/if}}" data-tab="{{key}}" data-tooltip="{{hint}}">
-      {{#if icon}}<i class="{{icon}}"></i> {{/if}}
-      <span>{{label}}</span>
+      {{#if icon}}<i class="{{icon}}"></i>{{/if}}
+      {{#unless iconOnly}}<span>{{label}}</span>{{/unless}}
       {{#if ../showPips}}
       <span class="custom-chat-tabs-pip"></span>
       {{/if}}

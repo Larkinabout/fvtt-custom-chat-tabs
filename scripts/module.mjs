@@ -1,6 +1,7 @@
-import { MODULE, SETTING, TEMPLATE } from "./constants.mjs";
+import { MODULE, SETTING, TAB, TEMPLATE } from "./constants.mjs";
 import { getSetting, Logger } from "./utils.mjs";
 import { registerSettings } from "./settings.mjs";
+import { registerMigrationSetting, migrate } from "./migration.mjs";
 import { CustomChatTabs } from "./custom-chat-tabs.mjs";
 
 /* ---------------------------------------- */
@@ -11,6 +12,7 @@ Hooks.on("init", () => {
   Logger.info("Initialising...");
 
   registerSettings();
+  registerMigrationSetting();
 
   const instance = new CustomChatTabs();
   game.customChatTabs = instance;
@@ -24,14 +26,19 @@ Hooks.on("init", () => {
     togglePin: instance.togglePin.bind(instance)
   };
 
-  foundry.applications.handlebars.loadTemplates([TEMPLATE.TAB_BAR]);
+  foundry.applications.handlebars.loadTemplates([
+    TEMPLATE.TAB_BAR,
+    TEMPLATE.TAB_CONFIG,
+    TEMPLATE.TAB_EDIT
+  ]);
 });
 
 /* ---------------------------------------- */
 /*  Ready                                   */
 /* ---------------------------------------- */
 
-Hooks.on("ready", () => {
+Hooks.on("ready", async () => {
+  await migrate();
   if ( !getSetting(SETTING.ENABLE.KEY) ) return;
 
   game.customChatTabs.initTabs();
@@ -86,7 +93,8 @@ Hooks.on("renderChatMessageHTML", (message, html) => {
   if ( !getSetting(SETTING.ENABLE.KEY) ) return;
 
   // Add pin icon to pinned messages
-  if ( getSetting(SETTING.SHOW_PIN_BUTTON.KEY) && message.flags?.[MODULE.ID]?.pinned ) {
+  const hasPinnedTab = game.customChatTabs._tabs.has(TAB.PINNED);
+  if ( hasPinnedTab && getSetting(SETTING.SHOW_PIN_BUTTON.KEY) && message.flags?.[MODULE.ID]?.pinned ) {
     const header = html.querySelector(".message-header");
     if ( header ) {
       const pin = document.createElement("i");
@@ -120,6 +128,8 @@ Hooks.on("getChatMessageContextOptions", (html, menuItems) => {
   if ( !getSetting(SETTING.ENABLE.KEY) ) return;
 
   // Pin option
+  if ( !game.customChatTabs._tabs.has(TAB.PINNED) ) return;
+
   menuItems.push({
     name: "CUSTOM_CHAT_TABS.pin",
     icon: '<i class="fas fa-thumbtack"></i>',

@@ -1,0 +1,19 @@
+<div class="custom-chat-tabs-edit standard-form">
+  <div class="form-group">
+    <label>{{localize "CUSTOM_CHAT_TABS.tabEdit.label"}}</label>
+    <input type="text" name="label" value="{{label}}" />
+  </div>
+  <div class="form-group">
+    <label>{{localize "CUSTOM_CHAT_TABS.tabEdit.icon"}}</label>
+    <input type="text" name="icon" value="{{icon}}" placeholder="fas fa-comment" />
+  </div>
+  <div class="form-group">
+    <label>{{localize "CUSTOM_CHAT_TABS.tabEdit.iconOnly"}}</label>
+    <input type="checkbox" name="iconOnly"{{#if iconOnly}} checked{{/if}} />
+  </div>
+  <footer class="form-footer">
+    <button type="button" data-action="saveEdit">
+      <i class="fa-solid fa-floppy-disk"></i> Save &amp; Close
+    </button>
+  </footer>
+</div>
