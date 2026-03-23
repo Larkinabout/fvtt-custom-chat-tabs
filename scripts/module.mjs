@@ -140,12 +140,11 @@ Hooks.on("getChatMessageContextOptions", (html, menuItems) => {
   if ( !getSetting(SETTING.ENABLE.KEY) ) return;
 
   // Pin option
-  if ( !game.customChatTabs._tabs.has(TAB.PINNED) ) return;
-
   menuItems.push({
     name: "CUSTOM_CHAT_TABS.pin",
     icon: '<i class="fas fa-thumbtack"></i>',
     condition: li => {
+      if ( !game.customChatTabs._tabs.has(TAB.PINNED) ) return false;
       const message = game.messages.get(li.dataset.messageId);
       return message?.canUserModify(game.user, "update") && !message.flags?.[MODULE.ID]?.pinned;
     },
@@ -159,6 +158,7 @@ Hooks.on("getChatMessageContextOptions", (html, menuItems) => {
     name: "CUSTOM_CHAT_TABS.unpin",
     icon: '<i class="fas fa-thumbtack"></i>',
     condition: li => {
+      if ( !game.customChatTabs._tabs.has(TAB.PINNED) ) return false;
       const message = game.messages.get(li.dataset.messageId);
       return message?.canUserModify(game.user, "update") && message.flags?.[MODULE.ID]?.pinned === true;
     },
