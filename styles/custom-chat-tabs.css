@@ -59,6 +59,8 @@
   padding: 4px 8px;
   position: relative;
   white-space: nowrap;
+  width: auto;
+  height: auto;
 }
 
 .custom-chat-tabs-tab:hover {
