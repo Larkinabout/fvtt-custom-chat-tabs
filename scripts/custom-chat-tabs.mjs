@@ -127,6 +127,20 @@ export class CustomChatTabs {
   }
 
   /* ---------------------------------------- */
+
+  /**
+   * Whether a tab exists.
+   * @param {string} key Tab key
+   * @returns {boolean}
+   */
+  hasTab(key) {
+    return Boolean(
+      game.customChatTabs?._tabs?.has(key)
+      || getSetting(SETTING.TABS.KEY)?.some(tab => tab.key === key)
+    );
+  }
+
+  /* ---------------------------------------- */
   /*  Tab Bar Rendering                       */
   /* ---------------------------------------- */
 
@@ -407,6 +421,58 @@ export class CustomChatTabs {
     if ( !isPinned && this._activeTab !== TAB.PINNED && getSetting(SETTING.NOTIFICATION_PIPS.KEY) ) {
       const pip = document.querySelector(`.custom-chat-tabs-tab[data-tab="${TAB.PINNED}"] .custom-chat-tabs-pip`);
       if ( pip ) pip.classList.add("active");
+    }
+  }
+
+  /* ---------------------------------------- */
+
+  /**
+   * Add pin indicator to message.
+   * @param {ChatMessage} message
+   * @param {HtmlElement} html
+   * @returns {void}
+   */
+  addPinIndicator(message, html) {
+    const hasPin = !!html.querySelector(".custom-chat-tabs-pin-icon");
+    if ( hasPin ) return;
+
+    const header = html.querySelector(".message-header");
+    if ( !header ) return;
+
+    const isPinned = message.getFlag(MODULE.ID, "pinned");
+    const pin = document.createElement("i");
+    const icon = isPinned ? "fa-thumbtack" : "fa-thumbtack-angle";
+    const tooltip = isPinned ? "CUSTOM_CHAT_TABS.unpin" : "CUSTOM_CHAT_TABS.pin";
+    pin.className = `custom-chat-tabs-pin-icon fas ${icon}`;
+    pin.setAttribute("data-tooltip", game.i18n.localize(tooltip));
+    pin.style.cursor = "pointer";
+    pin.addEventListener("click", () => game.customChatTabs.togglePin(message.id));
+    header.appendChild(pin);
+  }
+
+  /* ---------------------------------------- */
+
+  /**
+   * Remove pin indicator from message.
+   * @param {HtmlElement} html
+   */
+  removePinIndicator(html) {
+    const pin = html.querySelector(".custom-chat-tabs-pin-icon");
+    pin?.remove();
+  }
+
+  /* ---------------------------------------- */
+
+  togglePinIndicators() {
+    const hasPinnedTab = this.hasTab(TAB.PINNED);
+    const showPinButton = getSetting(SETTING.SHOW_PIN_BUTTON.KEY);
+    for ( const html of chat.querySelectorAll(".chat-log .message[data-message-id]") ) {
+      if ( hasPinnedTab && showPinButton ) {
+        const message = game.messages.get(html.dataset.messageId);
+        this.addPinIndicator(message, html);
+      } else {
+        this.removePinIndicator(html);
+      }
     }
   }
 }

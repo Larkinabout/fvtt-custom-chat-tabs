@@ -83,6 +83,7 @@
 .custom-chat-tabs-pin-icon {
   padding-left: 0.5rem;
   flex: 0;
+  min-width: 20px;
 }
 
 /* ---------------------------------------- */

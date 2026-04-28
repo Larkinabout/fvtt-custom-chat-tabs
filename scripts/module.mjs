@@ -105,17 +105,10 @@ Hooks.on("renderChatMessageHTML", (message, html) => {
   if ( !getSetting(SETTING.ENABLE.KEY) ) return;
 
   // Add pin icon to pinned messages
-  const hasPinnedTab = game.customChatTabs._tabs.has(TAB.PINNED);
-  if ( hasPinnedTab && getSetting(SETTING.SHOW_PIN_BUTTON.KEY) && message.flags?.[MODULE.ID]?.pinned ) {
-    const header = html.querySelector(".message-header");
-    if ( header ) {
-      const pin = document.createElement("i");
-      pin.className = "custom-chat-tabs-pin-icon fas fa-thumbtack";
-      pin.setAttribute("data-tooltip", game.i18n.localize("CUSTOM_CHAT_TABS.unpin"));
-      pin.style.cursor = "pointer";
-      pin.addEventListener("click", () => game.customChatTabs.togglePin(message.id));
-      header.appendChild(pin);
-    }
+  const hasPinnedTab = game.customChatTabs.hasTab(TAB.PINNED);
+
+  if ( hasPinnedTab && getSetting(SETTING.SHOW_PIN_BUTTON.KEY) ) {
+    game.customChatTabs.addPinIndicator(message, html);
   }
 
   // Apply active tab filter to message
@@ -156,7 +149,7 @@ Hooks.on("getChatMessageContextOptions", (html, menuItems) => {
   // Unpin option
   menuItems.push({
     name: "CUSTOM_CHAT_TABS.unpin",
-    icon: '<i class="fas fa-thumbtack"></i>',
+    icon: '<i class="fas fa-thumbtack-angle"></i>',
     condition: li => {
       if ( !game.customChatTabs._tabs.has(TAB.PINNED) ) return false;
       const message = game.messages.get(li.dataset.messageId);

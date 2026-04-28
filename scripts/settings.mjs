@@ -28,7 +28,8 @@ export function registerSettings() {
     scope: "world",
     config: false,
     type: Array,
-    default: []
+    default: [],
+    onChange: () => { game.customChatTabs.togglePinIndicators(); }
   });
 
   game.settings.register(MODULE.ID, SETTING.SHOW_PIN_BUTTON.KEY, {
@@ -37,7 +38,8 @@ export function registerSettings() {
     scope: "world",
     config: true,
     type: Boolean,
-    default: true
+    default: true,
+    onChange: () => { game.customChatTabs.togglePinIndicators(); }
   });
 
   game.settings.register(MODULE.ID, SETTING.NOTIFICATION_PIPS.KEY, {

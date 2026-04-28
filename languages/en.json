@@ -31,7 +31,7 @@
     "unpin": "Unpin Message",
     "showPinButton": {
       "name": "Show Pin Indicator",
-      "hint": "Show a pin icon on pinned messages."
+      "hint": "Show a pin icon on messages."
     },
     "notificationPips": {
       "name": "Notification Pips",
