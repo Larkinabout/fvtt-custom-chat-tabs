@@ -20,6 +20,8 @@ export function buildFilter(preset, config = {}) {
       return msg => msg.speaker?.scene === canvas.scene?.id;
     case "roll":
       return msg => msg.isRoll;
+    case "mechanics":
+      return msg => msg.isRoll || msg.style === CONST.CHAT_MESSAGE_STYLES.OTHER;
     case "flag":
       return msg => {
         const flags = msg.flags?.[config.flagModule];
@@ -82,6 +84,12 @@ export function getPresetTabs() {
       key: TAB.ROLLS,
       label: game.i18n.localize("CUSTOM_CHAT_TABS.tabs.rolls"),
       preset: "roll",
+      config: {}
+    },
+    {
+      key: TAB.MECHANICS,
+      label: game.i18n.localize("CUSTOM_CHAT_TABS.tabs.mechanics"),
+      preset: "mechanics",
       config: {}
     },
     {

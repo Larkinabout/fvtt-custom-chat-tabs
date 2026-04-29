@@ -463,6 +463,9 @@ export class CustomChatTabs {
 
   /* ---------------------------------------- */
 
+  /**
+   * Toggle pin indicators on all messages.
+   */
   togglePinIndicators() {
     const hasPinnedTab = this.hasTab(TAB.PINNED);
     const showPinButton = getSetting(SETTING.SHOW_PIN_BUTTON.KEY);
