@@ -23,7 +23,7 @@ A tab bar is added above the chat log for organising messages. The **All** tab i
 - **Pinned** - Pinned messages
 - **IC** - In-character messages
 - **OOC** - Out-of-character messages
-- **Mechanics** - Rolls and other messages not including IC, OOC or emotes.
+- **Mechanics** - Rolls and other messages not including IC, OOC or emotes
 - **Rolls** - Roll messages
 - **Scene** - Messages from the currently active scene
 - **Whispers** - Whispered messages
@@ -53,6 +53,7 @@ The **Clear Chat Log** and **Export Chat Log** buttons are scoped to the active 
 | Enable Chat Tabs | Enable the chat tabs |
 | Configure Tabs | Configure which tabs are shown and their order |
 | Show Pin Indicator | Show a pin icon on pinned messages |
+| Pin Permission | Minimum role required to pin unowned messages |
 | Notification Pips | Show unread notification pips on inactive tabs |
 | Enable Debug Mode | Log debug messages to the console |
 
