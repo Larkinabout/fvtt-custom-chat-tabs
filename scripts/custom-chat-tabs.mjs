@@ -1,4 +1,4 @@
-import { MODULE, SETTING, TAB, TEMPLATE } from "./constants.mjs";
+import { MODULE, SETTING, SOCKET, TAB, TEMPLATE } from "./constants.mjs";
 import { getSetting, Logger } from "./utils.mjs";
 import { getBuiltInTabs, getFilterForTab } from "./tab-registry.mjs";
 
@@ -408,20 +408,69 @@ export class CustomChatTabs {
   /* ---------------------------------------- */
 
   /**
+   * Whether the current user is allowed to pin a given message.
+   * @param {ChatMessage} message
+   * @returns {boolean}
+   */
+  canUserPin(message) {
+    if ( !message ) return false;
+    if ( message.canUserModify(game.user, "update") ) return true;
+    return game.user.role >= getSetting(SETTING.PIN_PERMISSION.KEY);
+  }
+
+  /* ---------------------------------------- */
+
+  /**
    * Toggle the pin flag on a chat message.
    * @param {string} messageId Chat message ID
    */
   async togglePin(messageId) {
     const message = game.messages.get(messageId);
     if ( !message ) return;
+    if ( !this.canUserPin(message) ) return;
+
     const isPinned = message.flags?.[MODULE.ID]?.pinned === true;
-    await message.setFlag(MODULE.ID, "pinned", !isPinned);
+
+    if ( message.canUserModify(game.user, "update") ) {
+      await message.setFlag(MODULE.ID, "pinned", !isPinned);
+    } else {
+      if ( !game.users.activeGM ) {
+        Logger.warn(game.i18n.localize("CUSTOM_CHAT_TABS.noActiveGM"), true);
+        return;
+      }
+      Logger.debug(`Emitting pin socket request for message "${messageId}" (pinned=${!isPinned})`);
+      game.socket.emit(SOCKET.NAME, {
+        action: SOCKET.ACTION.TOGGLE_PIN,
+        messageId,
+        userId: game.user.id,
+        pinned: !isPinned
+      });
+    }
 
     // Show pip on Pinned tab if not active
     if ( !isPinned && this._activeTab !== TAB.PINNED && getSetting(SETTING.NOTIFICATION_PIPS.KEY) ) {
       const pip = document.querySelector(`.custom-chat-tabs-tab[data-tab="${TAB.PINNED}"] .custom-chat-tabs-pip`);
       if ( pip ) pip.classList.add("active");
     }
+  }
+
+  /* ---------------------------------------- */
+
+  /**
+   * Handle a socket pin request.
+   * @param {object} data Socket payload
+   */
+  async handlePinRequest(data) {
+    if ( !game.users.activeGM?.isSelf ) return;
+    const requester = game.users.get(data.userId);
+    if ( !requester ) return;
+    if ( requester.role < getSetting(SETTING.PIN_PERMISSION.KEY) ) {
+      Logger.warn(`Pin request from "${requester.name}" rejected: insufficient role`);
+      return;
+    }
+    const message = game.messages.get(data.messageId);
+    if ( !message ) return;
+    await message.setFlag(MODULE.ID, "pinned", data.pinned);
   }
 
   /* ---------------------------------------- */
@@ -435,6 +484,8 @@ export class CustomChatTabs {
   addPinIndicator(message, html) {
     const hasPin = !!html.querySelector(".custom-chat-tabs-pin-icon");
     if ( hasPin ) return;
+
+    if ( !this.canUserPin(message) ) return;
 
     const metadata = html.querySelector(".message-metadata");
     if ( !metadata ) return;

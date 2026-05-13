@@ -21,6 +21,9 @@ export const SETTING = {
   SHOW_PIN_BUTTON: {
     KEY: "showPinButton"
   },
+  PIN_PERMISSION: {
+    KEY: "pinPermission"
+  },
   NOTIFICATION_PIPS: {
     KEY: "notificationPips"
   },
@@ -33,6 +36,13 @@ export const TEMPLATE = {
   TAB_BAR: `modules/${MODULE.ID}/templates/tab-bar.hbs`,
   TAB_CONFIG: `modules/${MODULE.ID}/templates/tab-config-form.hbs`,
   TAB_EDIT: `modules/${MODULE.ID}/templates/tab-edit-form.hbs`
+};
+
+export const SOCKET = {
+  NAME: `module.${MODULE.ID}`,
+  ACTION: {
+    TOGGLE_PIN: "togglePin"
+  }
 };
 
 export const TAB = {

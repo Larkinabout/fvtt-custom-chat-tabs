@@ -1,4 +1,4 @@
-import { MODULE, SETTING, TAB, TEMPLATE } from "./constants.mjs";
+import { MODULE, SETTING, SOCKET, TAB, TEMPLATE } from "./constants.mjs";
 import { getSetting, Logger } from "./utils.mjs";
 import { registerSettings } from "./settings.mjs";
 import { registerMigrationSetting, migrate } from "./migration.mjs";
@@ -43,6 +43,11 @@ Hooks.on("ready", async () => {
 
   game.customChatTabs.initTabs();
   game.customChatTabs.ready();
+
+  game.socket.on(SOCKET.NAME, data => {
+    if ( data?.action === SOCKET.ACTION.TOGGLE_PIN ) game.customChatTabs.handlePinRequest(data);
+  });
+
   Logger.info("Ready");
 });
 
@@ -139,7 +144,7 @@ Hooks.on("getChatMessageContextOptions", (html, menuItems) => {
     condition: li => {
       if ( !game.customChatTabs._tabs.has(TAB.PINNED) ) return false;
       const message = game.messages.get(li.dataset.messageId);
-      return message?.canUserModify(game.user, "update") && !message.flags?.[MODULE.ID]?.pinned;
+      return game.customChatTabs.canUserPin(message) && !message.flags?.[MODULE.ID]?.pinned;
     },
     callback: li => {
       game.customChatTabs.togglePin(li.dataset.messageId);
@@ -153,7 +158,7 @@ Hooks.on("getChatMessageContextOptions", (html, menuItems) => {
     condition: li => {
       if ( !game.customChatTabs._tabs.has(TAB.PINNED) ) return false;
       const message = game.messages.get(li.dataset.messageId);
-      return message?.canUserModify(game.user, "update") && message.flags?.[MODULE.ID]?.pinned === true;
+      return game.customChatTabs.canUserPin(message) && message.flags?.[MODULE.ID]?.pinned === true;
     },
     callback: li => {
       game.customChatTabs.togglePin(li.dataset.messageId);

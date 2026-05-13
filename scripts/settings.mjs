@@ -42,6 +42,22 @@ export function registerSettings() {
     onChange: () => { game.customChatTabs.togglePinIndicators(); }
   });
 
+  game.settings.register(MODULE.ID, SETTING.PIN_PERMISSION.KEY, {
+    name: "CUSTOM_CHAT_TABS.pinPermission.name",
+    hint: "CUSTOM_CHAT_TABS.pinPermission.hint",
+    scope: "world",
+    config: true,
+    type: Number,
+    default: CONST.USER_ROLES.GAMEMASTER,
+    choices: {
+      [CONST.USER_ROLES.PLAYER]: "CUSTOM_CHAT_TABS.pinPermission.choices.player",
+      [CONST.USER_ROLES.TRUSTED]: "CUSTOM_CHAT_TABS.pinPermission.choices.trusted",
+      [CONST.USER_ROLES.ASSISTANT]: "CUSTOM_CHAT_TABS.pinPermission.choices.assistant",
+      [CONST.USER_ROLES.GAMEMASTER]: "CUSTOM_CHAT_TABS.pinPermission.choices.gamemaster"
+    },
+    onChange: () => { game.customChatTabs.togglePinIndicators(); }
+  });
+
   game.settings.register(MODULE.ID, SETTING.NOTIFICATION_PIPS.KEY, {
     name: "CUSTOM_CHAT_TABS.notificationPips.name",
     hint: "CUSTOM_CHAT_TABS.notificationPips.hint",
