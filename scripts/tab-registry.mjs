@@ -21,7 +21,9 @@ export function buildFilter(preset, config = {}) {
     case "roll":
       return msg => msg.isRoll;
     case "mechanics":
-      return msg => msg.isRoll || msg.style === CONST.CHAT_MESSAGE_STYLES.OTHER;
+      return msg => msg.isRoll
+        || msg.style === CONST.CHAT_MESSAGE_STYLES.OTHER
+        || (msg.style === CONST.CHAT_MESSAGE_STYLES.EMOTE && !!msg.flavor);
     case "flag":
       return msg => {
         const flags = msg.flags?.[config.flagModule];
