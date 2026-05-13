@@ -77,11 +77,20 @@
 }
 
 /* ---------------------------------------- */
+/*  Chat Log                                */
+/* ---------------------------------------- */
+
+/* Temporary fix of https://github.com/foundryvtt/foundryvtt/issues/14358 */
+ol.chat-log:has(> li:nth-of-type(100)) {
+  padding-left: 0;
+}
+
+/* ---------------------------------------- */
 /*  Pin Indicator                           */
 /* ---------------------------------------- */
 
 .custom-chat-tabs-pin-icon {
-  padding-left: 0.5rem;
+  align-content: center;
   flex: 0;
   min-width: 20px;
 }

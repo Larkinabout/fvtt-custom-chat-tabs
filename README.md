@@ -23,6 +23,7 @@ A tab bar is added above the chat log for organising messages. The **All** tab i
 - **Pinned** - Pinned messages
 - **IC** - In-character messages
 - **OOC** - Out-of-character messages
+- **Mechanics** - Rolls and other messages not including IC, OOC or emotes.
 - **Rolls** - Roll messages
 - **Scene** - Messages from the currently active scene
 - **Whispers** - Whispered messages

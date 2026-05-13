@@ -11,7 +11,7 @@
   ],
   "compatibility": {
     "minimum": "13.341",
-    "verified": "14.360",
+    "verified": "14.361",
     "maximum": "14.999"
   },
   "esmodules": [

@@ -436,8 +436,8 @@ export class CustomChatTabs {
     const hasPin = !!html.querySelector(".custom-chat-tabs-pin-icon");
     if ( hasPin ) return;
 
-    const header = html.querySelector(".message-header");
-    if ( !header ) return;
+    const metadata = html.querySelector(".message-metadata");
+    if ( !metadata ) return;
 
     const isPinned = message.getFlag(MODULE.ID, "pinned");
     const pin = document.createElement("i");
@@ -447,7 +447,7 @@ export class CustomChatTabs {
     pin.setAttribute("data-tooltip", game.i18n.localize(tooltip));
     pin.style.cursor = "pointer";
     pin.addEventListener("click", () => game.customChatTabs.togglePin(message.id));
-    header.appendChild(pin);
+    metadata.appendChild(pin);
   }
 
   /* ---------------------------------------- */
